@@ -18,13 +18,21 @@ Route::get('/', function () {
 });
 
 
-// admin login 
+// admin login
 Route::get('/admin/login','Admin\PageController@showLogin');
 Route::post('/admin/login','Admin\PageController@login');
 
 
 // admin route
 Route::group(['prefix' => 'admin','namespace' => 'Admin'],function(){
+    // admin login and logout
     Route::get('/','PageController@showDashboard');
     Route::post('/logout','PageController@logout');
+
+
+    // category
+    Route::resource('/category','CategoryController');
+
+    // color
+    Route::resource('/color', 'ColorController');
 });

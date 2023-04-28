@@ -24,8 +24,8 @@
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link active" href="examples/dashboard.html">
-                <i class="ni ni-tv-2 text-primary"></i>
+              <a class="nav-link active" href="{{route('category.index')}}">
+                <i class="fa-regular fa-square-caret-down text-primary"></i>
                 <span class="nav-link-text">Category</span>
               </a>
             </li>
@@ -63,3 +63,4 @@
       </div>
     </div>
   </nav>
+

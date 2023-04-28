@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Models\Category;
+use App\Models\Color;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-class CategoryController extends Controller
+class ColorController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,8 +16,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $category = Category::latest()->paginate('5');
-        return view('admin.category.index',compact('category'));
+        //
     }
 
     /**
@@ -27,7 +26,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        return view('admin.category.create');
+        return view('admin.color.create');
     }
 
     /**
@@ -42,12 +41,12 @@ class CategoryController extends Controller
             'name' => 'required'
         ]);
 
-        Category::create([
+        Color::create([
             'slug' => Str::slug($request->name.uniqid()),
             'name' => $request->name
         ]);
 
-        return redirect()->back()->with(['success'=>'category new created ']);
+        return redirect()->back()->with(['success' => 'color created']);
     }
 
     /**
@@ -69,12 +68,7 @@ class CategoryController extends Controller
      */
     public function edit($id)
     {
-        $category = Category::where('slug',$id)->first();
-        if(!$category){
-            return redirect()->back()->with(['error' => 'Category not found']);
-        }
-
-        return view('admin.category.edit',compact('category'));
+        //
     }
 
     /**
@@ -86,21 +80,7 @@ class CategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $request->validate([
-            'name' => 'required'
-        ]);
-
-        $category = Category::where('slug',$id)->first();
-        if(!$category){
-            return redirect()->back()->with(['error' => 'Category not found']);
-        }
-
-        Category::where('slug',$id)->update([
-            'name' => $request->name,
-            'slug' => Str::slug($request->name.uniqid())
-        ]);
-
-        return redirect()->route('category.index')->with(['success' => 'Category Updated ']);
+        //
     }
 
     /**
@@ -111,14 +91,6 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-        $category = Category::where('slug',$id)->first();
-        if(!$category){
-            return redirect()->back()->with(['error' => 'Category not found']);
-        }
-
-        $category->delete();
-
-        return redirect()->route('category.index')->with(['delete' =>'category is deleted']);
-
+        //
     }
 }
