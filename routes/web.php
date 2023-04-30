@@ -35,4 +35,7 @@ Route::group(['prefix' => 'admin','namespace' => 'Admin'],function(){
 
     // color
     Route::resource('/color', 'ColorController');
+
+    // brand
+    Route::resource('/brand', 'BrandController');
 });

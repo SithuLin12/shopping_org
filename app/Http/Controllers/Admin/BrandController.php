@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Models\Color;
+use App\Models\Brand;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-class ColorController extends Controller
+class BrandController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,9 +16,9 @@ class ColorController extends Controller
      */
     public function index()
     {
-        $color = Color::latest()->paginate('4');
+        $brand = Brand::latest()->paginate('4');
 
-        return view('admin.color.index',compact('color'));
+        return view('admin.brand.index',compact('brand'));
     }
 
     /**
@@ -28,7 +28,7 @@ class ColorController extends Controller
      */
     public function create()
     {
-        return view('admin.color.create');
+        return view('admin.brand.create');
     }
 
     /**
@@ -43,12 +43,12 @@ class ColorController extends Controller
             'name' => 'required'
         ]);
 
-        Color::create([
-            'slug' => Str::slug($request->name.uniqid()),
-            'name' => $request->name
+        Brand::create([
+            'name' => $request->name,
+            'slug' => Str::slug($request->name).uniqid()
         ]);
 
-        return redirect()->back()->with(['success' => 'color created']);
+        return redirect()->back()->with(['success' => 'brand created success']);
     }
 
     /**
@@ -70,13 +70,13 @@ class ColorController extends Controller
      */
     public function edit($id)
     {
-        $color = Color::where('slug',$id)->first();
+        $brand = Brand::where('slug',$id)->first();
 
-        if(!$color){
-            return redirect()->back()->with(['error','color slug not found']);
+        if(!$brand){
+            return redirect()->back()->with(['error' => 'brand slug not found']);
         }
 
-        return view('admin.color.edit',compact('color'));
+        return view('admin.brand.edit',compact('brand'));
     }
 
     /**
@@ -88,22 +88,18 @@ class ColorController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $request->validate([
-            'name' => 'required'
-        ]);
+        $brand = Brand::where('slug',$id)->first();
 
-        $color = Color::where('slug',$id)->first();
-
-        if(!$color){
-            return redirect()->back()->with(['error' => 'color slug not found']);
+        if(!$brand){
+            return redirect()->back()->with(['error' => 'brand slug not found']);
         }
 
-        $color->update([
+        $brand->update([
             'name' => $request->name,
             'slug' => Str::slug($request->name).uniqid()
         ]);
 
-        return redirect()->route('color.index')->with(['success' => 'color updated successful']);
+        return redirect()->route('brand.index')->with(['success'=>'brand updated successful']);
     }
 
     /**
@@ -114,14 +110,15 @@ class ColorController extends Controller
      */
     public function destroy($id)
     {
-        $color = Color::where('slug',$id)->first();
 
-        if(!$color){
-            return redirect()->back()->with(['error' => 'color slug not found']);
+        $brand = Brand::where('slug',$id)->first();
+
+        if(!$brand){
+            return redirect()->back()->with(['error' => 'brand slug not found']);
         }
 
-        $color->delete();
+        $brand->delete();
 
-        return back()->with(['error' => 'color delete success']);
+        return redirect()->route('brand.index')->with(['success' => 'brand delete success']);
     }
 }

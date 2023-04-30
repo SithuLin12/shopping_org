@@ -2,6 +2,7 @@
 
 
 @section('content')
+    <h4>Category List</h4>
     <div class="">
         <a href="{{ route('category.create') }}" class="btn btn-success">Add Category</a>
     </div>
@@ -22,7 +23,7 @@
                 <td>{{ $c->name }}</td>
                 <td>
                     <a href="{{ route('category.edit',$c->slug) }}" class="btn btn-primary">Edit</a>
-                <form action="{{route('category.destroy',$c->slug)}}" onsubmit="return confirm('Sure for delete?')" method="post" class="d-inline">
+                <form action="{{route('category.destroy',$c->slug)}}" onsubmit="return confirm('Sure for category {{$c->name}} delete?')" method="post" class="d-inline">
                     @csrf
                     @method('DELETE')
                     <input type="submit" value="delete" class="btn btn-danger">

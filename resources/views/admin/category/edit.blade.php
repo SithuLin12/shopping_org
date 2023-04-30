@@ -15,6 +15,6 @@
             <input type="text" name="name" value="{{$category->name}}" id="" class="form-control">
         </div>
 
-        <input type="submit" value="Create" class="btn btn-primary">
+        <input type="submit" value="Update" class="btn btn-primary">
     </form>
 @endsection
